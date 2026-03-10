@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grabify — Social Video Downloader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Animated background orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <!-- Grain overlay -->
+  <div class="grain"></div>
+
+  <div class="wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </div>
+        <span class="logo-text">Grabify</span>
+      </div>
+      <nav class="header-nav">
+        <a href="#" class="nav-link active" id="navHome">Home</a>
+        <a href="#" class="nav-link" id="navPremium">Premium</a>
+        <div id="authArea">
+          <button class="btn-login" id="loginBtn">Sign in</button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Platform Selector -->
+    <section class="platform-section">
+      <div class="platform-tabs" id="platformTabs">
+        <button class="platform-tab active" data-platform="instagram">
+          <span class="tab-icon">📸</span>
+          <span>Instagram</span>
+        </button>
+        <button class="platform-tab" data-platform="facebook">
+          <span class="tab-icon">👥</span>
+          <span>Facebook</span>
+        </button>
+        <button class="platform-tab coming-soon" data-platform="tiktok">
+          <span class="tab-icon">🎵</span>
+          <span>TikTok</span>
+          <span class="soon-badge">Soon</span>
+        </button>
+        <button class="platform-tab coming-soon" data-platform="youtube">
+          <span class="tab-icon">▶️</span>
+          <span>YouTube</span>
+          <span class="soon-badge">Soon</span>
+        </button>
+        <button class="platform-tab coming-soon" data-platform="twitter">
+          <span class="tab-icon">🐦</span>
+          <span>X / Twitter</span>
+          <span class="soon-badge">Soon</span>
+        </button>
+        <button class="platform-tab coming-soon" data-platform="pinterest">
+          <span class="tab-icon">📌</span>
+          <span>Pinterest</span>
+          <span class="soon-badge">Soon</span>
+        </button>
+        <button class="platform-tab coming-soon" data-platform="snapchat">
+          <span class="tab-icon">👻</span>
+          <span>Snapchat</span>
+          <span class="soon-badge">Soon</span>
+        </button>
+        <button class="platform-tab coming-soon" data-platform="vimeo">
+          <span class="tab-icon">🎬</span>
+          <span>Vimeo</span>
+          <span class="soon-badge">Soon</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-title">
+        Download <span class="gradient-text" id="platformLabel">Instagram</span><br/>Videos Instantly
+      </h1>
+      <p class="hero-sub">Paste any link. Choose your quality. Done.</p>
+    </section>
+
+    <!-- Downloader Card -->
+    <div class="downloader-card" id="downloaderCard">
+      <div class="input-row">
+        <div class="input-wrap">
+          <span class="input-icon">🔗</span>
+          <input type="text" id="urlInput" placeholder="Paste your video link here..." autocomplete="off" />
+          <button class="clear-btn" id="clearBtn" style="display:none">✕</button>
+        </div>
+        <button class="fetch-btn" id="fetchBtn">
+          <span id="fetchBtnText">Fetch</span>
+          <div class="btn-spinner" id="btnSpinner" style="display:none"></div>
+        </button>
+      </div>
+      <p class="status-text" id="statusText"></p>
+
+      <!-- Result Area -->
+      <div class="result-area" id="resultArea" style="display:none">
+        <div class="result-header">
+          <span class="result-label">// Choose Quality</span>
+          <span class="result-badge" id="premiumBadge" style="display:none">⭐ Premium Active</span>
+        </div>
+
+        <div class="quality-grid" id="qualityGrid">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Download animation overlay -->
+        <div class="dl-animation" id="dlAnimation" style="display:none">
+          <div class="dl-anim-inner">
+            <div class="dl-ring"></div>
+            <div class="dl-icon">⬇</div>
+          </div>
+          <p class="dl-text" id="dlText">Preparing download...</p>
+          <div class="dl-bar-wrap"><div class="dl-bar" id="dlBar"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      ⚠ Only download videos you own or have rights to. Downloading copyrighted content may violate platform ToS and local laws. Grabify is not affiliated with Meta, Instagram, or any social platform.
+    </div>
+
+    <!-- Premium Section -->
+    <section class="premium-section" id="premiumSection">
+      <div class="premium-card">
+        <div class="premium-header">
+          <span class="crown">👑</span>
+          <h2>Grabify Premium</h2>
+          <p>Unlock the full experience</p>
+        </div>
+        <div class="premium-features">
+          <div class="feat">✦ 4K Ultra HD Downloads</div>
+          <div class="feat">✦ No daily download limits</div>
+          <div class="feat">✦ Batch download (up to 10 links)</div>
+          <div class="feat">✦ Audio-only extraction (MP3)</div>
+          <div class="feat">✦ Priority processing speed</div>
+          <div class="feat">✦ All platforms when released</div>
+        </div>
+        <div class="premium-price">
+          <span class="price-amount">₱99</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <button class="btn-premium" id="btnGetPremium">Get Premium via GCash</button>
+      </div>
+    </section>
+
+    <!-- GCash Modal -->
+    <div class="modal-overlay" id="gcashModal" style="display:none">
+      <div class="modal">
+        <button class="modal-close" id="modalClose">✕</button>
+        <div class="modal-icon">💸</div>
+        <h3>Pay via GCash</h3>
+        <p class="modal-sub">Send ₱99 to activate Premium</p>
+        <div class="gcash-number">
+          <span class="gcash-label">GCash Number</span>
+          <div class="gcash-val">
+            <span id="gcashNum">0953-872-8759</span>
+            <button class="copy-btn" onclick="copyGcash()">Copy</button>
+          </div>
+        </div>
+        <div class="modal-steps">
+          <div class="mstep"><span>1</span> Send ₱99 to the number above</div>
+          <div class="mstep"><span>2</span> Note your GCash Reference Number</div>
+          <div class="mstep"><span>3</span> Paste it below and submit</div>
+        </div>
+        <input type="text" id="refInput" placeholder="e.g. 1234567890123" class="ref-input" maxlength="30"/>
+        <input type="text" id="refName" placeholder="Your name (optional)" class="ref-input" style="margin-top:0.5rem"/>
+        <button class="btn-submit-ref" id="submitRef">Submit Reference</button>
+        <p class="modal-note" id="submitStatus"></p>
+      </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div class="modal-overlay" id="signInModal" style="display:none">
+      <div class="modal">
+        <button class="modal-close" id="signInClose">✕</button>
+        <div class="modal-icon">🔐</div>
+        <h3>Sign In</h3>
+        <p class="modal-sub">Sign in to track your premium status</p>
+        <button class="btn-google" id="googleSignIn">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Continue with Google
+        </button>
+        <p class="modal-note" id="signInStatus"></p>
+      </div>
+    </div>
+
+  </div><!-- end wrapper -->
+
+  <!-- Firebase SDKs -->
+  <script type="module" src="js/firebase-config.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
